@@ -1,4 +1,4 @@
-﻿@model Vehicles.API.Data.Entities.VehicleType
+﻿@model Vehicles.API.Data.Entities.Brand
 
 @{
     ViewData["Title"] = "Create";
@@ -6,14 +6,14 @@
 
 <h1>Crear</h1>
 
-<h4>Tipo de vehiculo</h4>
+<h4>Marca</h4>
 <hr />
 <div class="row">
     <div class="col-md-12">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <partial name="_VehicleType"/>
+                <partial name="_Brand" />
             </div>
             <div class="form-group">
                 <input type="submit" value="Crear" class="btn btn-primary" />
@@ -28,3 +28,4 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+
