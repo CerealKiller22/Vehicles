@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Vehicles.API.Data;
 using Vehicles.API.Data.Entities;
@@ -19,7 +17,7 @@ namespace Vehicles.API.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            return View(await _context.DocumentType.ToListAsync());
+            return View(await _context.DocumentTypes.ToListAsync());
         }
 
         public IActionResult Create()
@@ -66,7 +64,7 @@ namespace Vehicles.API.Controllers
                 return NotFound();
             }
 
-            DocumentType docuemtnType = await _context.DocumentType.FindAsync(id);
+            DocumentType docuemtnType = await _context.DocumentTypes.FindAsync(id);
             if (docuemtnType == null)
             {
                 return NotFound();
@@ -120,14 +118,14 @@ namespace Vehicles.API.Controllers
                 return NotFound();
             }
 
-            DocumentType documentType = await _context.DocumentType
+            DocumentType documentType = await _context.DocumentTypes
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (documentType == null)
             {
                 return NotFound();
             }
 
-            _context.DocumentType.Remove(documentType);
+            _context.DocumentTypes.Remove(documentType);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

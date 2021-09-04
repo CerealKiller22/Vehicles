@@ -18,7 +18,7 @@ namespace Vehicles.API.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Procedure.ToListAsync());
+            return View(await _context.Procedures.ToListAsync());
         }
 
         public IActionResult Create()
@@ -65,7 +65,7 @@ namespace Vehicles.API.Controllers
                 return NotFound();
             }
 
-            Procedure procedure = await _context.Procedure.FindAsync(id);
+            Procedure procedure = await _context.Procedures.FindAsync(id);
             if (procedure == null)
             {
                 return NotFound();
@@ -119,14 +119,14 @@ namespace Vehicles.API.Controllers
                 return NotFound();
             }
 
-            Procedure procedure = await _context.Procedure
+            Procedure procedure = await _context.Procedures
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (procedure == null)
             {
                 return NotFound();
             }
 
-            _context.Procedure.Remove(procedure);
+            _context.Procedures.Remove(procedure);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

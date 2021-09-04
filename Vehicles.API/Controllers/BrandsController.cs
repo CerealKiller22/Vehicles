@@ -19,7 +19,7 @@ namespace Vehicles.API.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Brand.ToListAsync());
+            return View(await _context.Brands.ToListAsync());
         }
 
         public IActionResult Create()
@@ -66,7 +66,7 @@ namespace Vehicles.API.Controllers
                 return NotFound();
             }
 
-            Brand brand = await _context.Brand.FindAsync(id);
+            Brand brand = await _context.Brands.FindAsync(id);
             if (brand == null)
             {
                 return NotFound();
@@ -120,14 +120,14 @@ namespace Vehicles.API.Controllers
                 return NotFound();
             }
 
-            Brand brand = await _context.Brand
+            Brand brand = await _context.Brands
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (brand == null)
             {
                 return NotFound();
             }
 
-            _context.Brand.Remove(brand);
+            _context.Brands.Remove(brand);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

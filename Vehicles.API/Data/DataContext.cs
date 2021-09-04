@@ -1,18 +1,19 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Vehicles.API.Data.Entities;
 
 namespace Vehicles.API.Data
 {
-    public class DataContext : DbContext
+    public class DataContext : IdentityDbContext<User>
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
 
         }
 
-        public DbSet<DocumentType> DocumentType { get; set; }
-        public DbSet<Brand> Brand { get; set; }
-        public DbSet<Procedure> Procedure { get; set; }
+        public DbSet<DocumentType> DocumentTypes { get; set; }
+        public DbSet<Brand> Brands { get; set; }
+        public DbSet<Procedure> Procedures { get; set; }
         public DbSet<VehicleType> VehicleTypes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
