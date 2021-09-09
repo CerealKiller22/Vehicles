@@ -43,7 +43,9 @@ namespace Vehicles.API
 
             services.AddTransient<SeedDb>();                      //solo una vez al ejecutar
             services.AddScoped<IUserHelper, UserHelper>();        //Instancia UserHelper y luego lo finaliza
-            //services.AddSingleton<>  el objeto estará en memoria siempre
+            services.AddScoped<ICombosHelper, CombosHelper>();
+            services.AddScoped<IBlobHelper, BlobHelper>();
+            services.AddScoped<IConverterHelper, ConverterHelper>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -20,9 +20,6 @@ namespace Vehicles.API.Data.Entities
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public decimal Price { get; set; }
 
-        public static implicit operator Procedure(VehicleType v)
-        {
-            throw new NotImplementedException();
-        }
+        public ICollection<Detail> Details { get; set; }
     }
 }
