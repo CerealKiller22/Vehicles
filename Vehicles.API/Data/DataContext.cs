@@ -17,10 +17,9 @@ namespace Vehicles.API.Data
         public DbSet<DocumentType> DocumentTypes { get; set; }
         public DbSet<History> Histories { get; set; }
         public DbSet<Procedure> Procedures { get; set; }
-        public DbSet<VehicleType> Vehicles { get; set; }
+        public DbSet<Vehicle> Vehicle { get; set; }
         public DbSet<VehiclePhoto> VehiclePhoto { get; set; }
-        public DbSet<VehicleType> VehicleTypes { get; set; }
-
+        public DbSet<VehicleType> VehicleType { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

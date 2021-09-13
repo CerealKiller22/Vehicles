@@ -135,10 +135,10 @@ namespace Vehicles.API.Data
 
         private async Task CheckVehiclesTypesAsync()
         {
-            if (!_context.VehicleTypes.Any())
+            if (!_context.VehicleType.Any())
             {
-                _context.VehicleTypes.Add(new VehicleType { Description = "Carro" });
-                _context.VehicleTypes.Add(new VehicleType { Description = "Moto" });
+                _context.VehicleType.Add(new VehicleType { Description = "Carro" });
+                _context.VehicleType.Add(new VehicleType { Description = "Moto" });
                 await _context.SaveChangesAsync();
             }
         }
