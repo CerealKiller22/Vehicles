@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 using Vehicles.API.Data;
 using Vehicles.API.Data.Entities;
 using Vehicles.API.Helpers;
@@ -27,6 +29,8 @@ namespace Vehicles.API
 
             services.AddIdentity<User, IdentityRole>(x => 
             {
+                x.Tokens.AuthenticatorTokenProvider = TokenOptions.DefaultAuthenticatorProvider;
+                x.SignIn.RequireConfirmedEmail = true;              //solicita que el email sea confirmado 
                 x.User.RequireUniqueEmail = true;
                 x.Password.RequireDigit = false;
                 x.Password.RequiredUniqueChars = 0;
@@ -34,7 +38,21 @@ namespace Vehicles.API
                 x.Password.RequireNonAlphanumeric = false;
                 x.Password.RequireUppercase = false;
 
-            }).AddEntityFrameworkStores<DataContext>();
+            })
+                .AddDefaultTokenProviders()      //Habilita el sistema para agregar correos
+                .AddEntityFrameworkStores<DataContext>();
+
+            services.AddAuthentication()
+                .AddCookie()
+                .AddJwtBearer(cfg =>
+                {
+                    cfg.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidIssuer = Configuration["Tokens:Issuer"],                              //Valida los tokens con las mismas claves
+                        ValidAudience = Configuration["Tokens:Audience"],
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Tokens:Key"]))
+                    };
+                });
 
             services.ConfigureApplicationCookie(options =>
             {
@@ -52,6 +70,8 @@ namespace Vehicles.API
             services.AddScoped<ICombosHelper, CombosHelper>();
             services.AddScoped<IBlobHelper, BlobHelper>();
             services.AddScoped<IConverterHelper, ConverterHelper>();
+            services.AddScoped<IMailHelper, MailHelper>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
